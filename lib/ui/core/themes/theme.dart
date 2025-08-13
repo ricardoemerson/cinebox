@@ -1,8 +1,9 @@
-import 'package:cinebox/ui/core/themes/text_styles.dart';
 import 'package:flutter/material.dart';
 
+import 'text_styles.dart';
+
 abstract final class AppTheme {
-  static get theme => ThemeData(
+  static ThemeData get theme => ThemeData(
     colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: AppBarTheme(
