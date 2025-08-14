@@ -49,6 +49,6 @@ abstract final class AppTextStyles {
   );
 
   static const errorText = TextStyle(
-    color: AppColors.redColor,
+    color: AppColors.red,
   );
 }
