@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'ui/core/themes/theme.dart';
-import 'ui/login/login/login_page.dart';
+import 'ui/home/home_page.dart';
+import 'ui/login/login_page.dart';
 import 'ui/splash/splash_page.dart';
 
 class CineboxMainApp extends StatelessWidget {
@@ -16,6 +17,7 @@ class CineboxMainApp extends StatelessWidget {
       routes: {
         '/': (context) => const SplashPage(),
         '/login': (context) => const LoginPage(),
+        '/home': (context) => const HomePage(),
       },
     );
   }
