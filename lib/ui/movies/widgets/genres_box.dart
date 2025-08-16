@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/themes/colors.dart';
 import '../commands/get_genres_command.dart';
+import '../movie_view_model.dart';
 
 class GenresBox extends ConsumerWidget {
   final selectedGenre = ValueNotifier(0);
@@ -38,6 +39,7 @@ class GenresBox extends ConsumerWidget {
                       child: InkWell(
                         onTap: () {
                           selectedGenre.value = genre.id;
+                          ref.read(movieViewModelProvider.notifier).fetchMoviesByGenre(genre.id);
                         },
                         borderRadius: BorderRadius.circular(20),
                         child: Padding(
