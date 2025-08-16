@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../models/genre_model.dart';
-import '../../models/movie_detail_model.dart';
-import '../../models/movie_model.dart';
+import '../../models/genre_response.dart';
+import '../../models/movie_detail_response.dart';
+import '../../models/movie_response.dart';
 
 part 'tmdb_service.g.dart';
 
@@ -12,36 +12,36 @@ abstract class TmdbService {
   factory TmdbService(Dio dio, {String baseUrl}) = _TmdbService;
 
   @GET('/genre/movie/list')
-  Future<GenreModel> getMoviesGenres({
+  Future<GenreResponse> getMoviesGenres({
     @Query('language') String language = 'pt-BR',
   });
 
   @GET('/movie/popular')
-  Future<MovieModel> getPopularMovies({
+  Future<MovieResponse> getPopularMovies({
     @Query('language') String language = 'pt-BR',
     @Query('page') int page = 1,
   });
 
   @GET('/movie/top_rated')
-  Future<MovieModel> getTopRatedMovies({
+  Future<MovieResponse> getTopRatedMovies({
     @Query('language') String language = 'pt-BR',
     @Query('page') int page = 1,
   });
 
   @GET('/movie/upcoming')
-  Future<MovieModel> getUpcomingMovies({
+  Future<MovieResponse> getUpcomingMovies({
     @Query('language') String language = 'pt-BR',
     @Query('page') int page = 1,
   });
 
   @GET('/movie/now_playing')
-  Future<MovieModel> getNowPlayingMovies({
+  Future<MovieResponse> getNowPlayingMovies({
     @Query('language') String language = 'pt-BR',
     @Query('page') int page = 1,
   });
 
   @GET('/search/movie')
-  Future<MovieModel> searchMovies({
+  Future<MovieResponse> searchMovies({
     @Query('query') required String query,
     @Query('language') String language = 'pt-BR',
     @Query('page') int page = 1,
@@ -49,7 +49,7 @@ abstract class TmdbService {
 
   // gere o discover movie
   @GET('/discover/movie')
-  Future<MovieModel> discoverMovies({
+  Future<MovieResponse> discoverMovies({
     @Query('language') String language = 'pt-BR',
     @Query('page') int page = 1,
     @Query('sort_by') String sortBy = 'popularity.desc',
@@ -57,7 +57,7 @@ abstract class TmdbService {
   });
 
   @GET('/movie/{movieId}?include_image_language=pt,null')
-  Future<MovieDetailModel> getMovieDetails({
+  Future<MovieDetailResponse> getMovieDetails({
     @Path('movieId') required int movieId,
     @Query('language') String language = 'pt-BR',
     @Query('append_to_response') String appendToResponse = '',

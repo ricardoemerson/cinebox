@@ -6,7 +6,7 @@ import '../../../config/env.dart';
 part 'tmdb_rest_client_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-Dio backendRestClient(Ref ref) {
+Dio tmdbRestClient(Ref ref) {
   final dio = Dio(
     BaseOptions(
       baseUrl: Env.theMovieDbApiUrl,
