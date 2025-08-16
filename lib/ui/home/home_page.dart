@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends StatefulWidget {
+import '../movies/movies_page.dart';
+import 'widgets/home_bottom_nav_bar.dart';
+
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('HomePage'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'HomePage is working',
-          style: TextStyle(fontSize: 20),
+      extendBody: true,
+      body: AnimatedSwitcher(
+        duration: Duration(milliseconds: 400),
+        transitionBuilder: (child, animation) => FadeTransition(
+          opacity: animation,
+          child: child,
         ),
+        child: MoviesPage(),
       ),
+      bottomNavigationBar: HomeBottomNavBar(),
     );
   }
 }
