@@ -5,13 +5,18 @@ import '../../core/themes/colors.dart';
 import '../commands/get_genres_command.dart';
 import '../movie_view_model.dart';
 
-class GenresBox extends ConsumerWidget {
-  final selectedGenre = ValueNotifier(0);
-
-  GenresBox({super.key});
+class GenresBox extends ConsumerStatefulWidget {
+  const GenresBox({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<GenresBox> createState() => _GenresBoxState();
+}
+
+class _GenresBoxState extends ConsumerState<GenresBox> {
+  final selectedGenre = ValueNotifier(0);
+
+  @override
+  Widget build(BuildContext context) {
     final genres = ref.watch(getGenresCommandProvider);
 
     return genres.when(
@@ -38,6 +43,13 @@ class GenresBox extends ConsumerWidget {
                       ),
                       child: InkWell(
                         onTap: () {
+                          if (value == genre.id) {
+                            selectedGenre.value = 0;
+                            ref.read(movieViewModelProvider.notifier).fetchMoviesByCategory();
+
+                            return;
+                          }
+
                           selectedGenre.value = genre.id;
                           ref.read(movieViewModelProvider.notifier).fetchMoviesByGenre(genre.id);
                         },
