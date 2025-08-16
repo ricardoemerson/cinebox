@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 
 import '../../../core/result/result.dart';
+import '../../../domain/models/genre_model.dart';
 import '../../../domain/models/movie_model.dart';
 import '../../exceptions/data_exception.dart';
 import '../../mappers/movie_mapper.dart';
@@ -28,11 +29,7 @@ class TmdbRepository implements ITmdbRepository {
     } on DioException catch (e, s) {
       log('Erro ao buscar filmes populares', error: e, stackTrace: s);
 
-      return Failure(
-        DataException(
-          message: 'Erro ao buscar filmes populares',
-        ),
-      );
+      return Failure(DataException(message: 'Erro ao buscar filmes populares'));
     }
   }
 
@@ -68,11 +65,7 @@ class TmdbRepository implements ITmdbRepository {
     } on DioException catch (e, s) {
       log('Erro ao buscar filmes atualmente nos cinemas', error: e, stackTrace: s);
 
-      return Failure(
-        DataException(
-          message: 'Erro ao buscar filmes atualmente nos cinemas',
-        ),
-      );
+      return Failure(DataException(message: 'Erro ao buscar filmes atualmente nos cinemas'));
     }
   }
 
@@ -88,11 +81,7 @@ class TmdbRepository implements ITmdbRepository {
     } on DioException catch (e, s) {
       log('Erro ao buscar filmes mais votados', error: e, stackTrace: s);
 
-      return Failure(
-        DataException(
-          message: 'Erro ao buscar filmes mais votados',
-        ),
-      );
+      return Failure(DataException(message: 'Erro ao buscar filmes mais votados'));
     }
   }
 
@@ -108,11 +97,7 @@ class TmdbRepository implements ITmdbRepository {
     } on DioException catch (e, s) {
       log('Erro ao buscar filmes que estão por vir', error: e, stackTrace: s);
 
-      return Failure(
-        DataException(
-          message: 'Erro ao buscar filmes que estão por vir',
-        ),
-      );
+      return Failure(DataException(message: 'Erro ao buscar filmes que estão por vir'));
     }
   }
 
@@ -129,11 +114,21 @@ class TmdbRepository implements ITmdbRepository {
     } on DioException catch (e, s) {
       log('Erro ao buscar filmes', error: e, stackTrace: s);
 
-      return Failure(
-        DataException(
-          message: 'Erro ao buscar filmes',
-        ),
-      );
+      return Failure(DataException(message: 'Erro ao buscar filmes'));
+    }
+  }
+
+  @override
+  Future<Result<List<GenreModel>>> getGenres() async {
+    try {
+      final data = await _tmdbService.getMoviesGenres();
+      final genres = data.genres.map((g) => GenreModel(id: g.id, name: g.name)).toList();
+
+      return Success(genres);
+    } on DioException catch (e, s) {
+      log('Erro ao buscar gêneros', error: e, stackTrace: s);
+
+      return Failure(DataException(message: 'Erro ao buscar gêneros'));
     }
   }
 }

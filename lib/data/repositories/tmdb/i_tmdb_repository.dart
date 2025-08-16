@@ -1,4 +1,5 @@
 import '../../../core/result/result.dart';
+import '../../../domain/models/genre_model.dart';
 import '../../../domain/models/movie_model.dart';
 
 abstract interface class ITmdbRepository {
@@ -39,4 +40,6 @@ abstract interface class ITmdbRepository {
     required int movieId,
     String language,
   });
+
+  Future<Result<List<GenreModel>>> getGenres();
 }
