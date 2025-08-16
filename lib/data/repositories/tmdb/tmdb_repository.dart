@@ -110,7 +110,7 @@ class TmdbRepository implements ITmdbRepository {
     try {
       final movieResponse = await _tmdbService.searchMovies(query: query, language: language, page: page);
 
-      return Success(MovieMapper.mapToMovies(movieResponse as dynamic));
+      return Success(MovieMapper.mapToMovies(movieResponse));
     } on DioException catch (e, s) {
       log('Erro ao buscar filmes', error: e, stackTrace: s);
 
@@ -129,6 +129,19 @@ class TmdbRepository implements ITmdbRepository {
       log('Erro ao buscar gêneros', error: e, stackTrace: s);
 
       return Failure(DataException(message: 'Erro ao buscar gêneros'));
+    }
+  }
+
+  @override
+  Future<Result<List<MovieModel>>> getMoviesByGenre({required int genreId}) async {
+    try {
+      final movieResponse = await _tmdbService.discoverMovies(withGenres: genreId.toString());
+
+      return Success(MovieMapper.mapToMovies(movieResponse));
+    } on DioException catch (e, s) {
+      log('Erro ao buscar filmes por gênero', error: e, stackTrace: s);
+
+      return Future.value(Failure(DataException(message: 'Erro ao buscar filmes por gênero')));
     }
   }
 }

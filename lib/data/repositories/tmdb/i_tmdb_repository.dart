@@ -42,4 +42,8 @@ abstract interface class ITmdbRepository {
   });
 
   Future<Result<List<GenreModel>>> getGenres();
+
+  Future<Result<List<MovieModel>>> getMoviesByGenre({
+    required int genreId,
+  });
 }
