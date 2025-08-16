@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'widgets/genres_box.dart';
 import 'widgets/movies_app_bar.dart';
 
 class MoviesPage extends ConsumerStatefulWidget {
@@ -15,7 +16,12 @@ class _MoviesPageState extends ConsumerState<MoviesPage> {
   Widget build(BuildContext context) {
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
-      slivers: [MoviesAppBar()],
+      slivers: [
+        MoviesAppBar(),
+        SliverToBoxAdapter(
+          child: GenresBox(),
+        ),
+      ],
     );
   }
 }
