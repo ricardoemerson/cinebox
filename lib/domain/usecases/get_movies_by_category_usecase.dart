@@ -1,7 +1,7 @@
 import '../../core/result/result.dart';
 import '../../data/repositories/tmdb/i_tmdb_repository.dart';
-import '../models/Movie_model.dart';
 import '../models/movie_by_category_model.dart';
+import '../models/movie_model.dart';
 
 class GetMoviesByCategoryUsecase {
   final ITmdbRepository _tmdbRepository;

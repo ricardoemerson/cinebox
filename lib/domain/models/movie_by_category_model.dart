@@ -1,4 +1,4 @@
-import 'Movie_model.dart';
+import 'movie_model.dart';
 
 class MovieByCategoryModel {
   final List<MovieModel> popular;
