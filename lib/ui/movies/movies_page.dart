@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'widgets/genres_box.dart';
 import 'widgets/movies_app_bar.dart';
-import 'widgets/movies_by_category.dart';
+import 'widgets/movies_by_search.dart';
 
 class MoviesPage extends ConsumerStatefulWidget {
   const MoviesPage({super.key});
@@ -23,7 +23,7 @@ class _MoviesPageState extends ConsumerState<MoviesPage> {
           child: GenresBox(),
         ),
         SliverToBoxAdapter(
-          child: MoviesByCategory(),
+          child: MoviesBySearch(),
         ),
       ],
     );
