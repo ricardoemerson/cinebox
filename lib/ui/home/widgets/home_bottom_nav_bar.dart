@@ -19,7 +19,7 @@ class _HomeBottomNavBarState extends State<HomeBottomNavBar> {
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
               color: Colors.black38,
@@ -29,34 +29,37 @@ class _HomeBottomNavBarState extends State<HomeBottomNavBar> {
             ),
           ],
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(30),
-          child: BottomNavigationBar(
-            enableFeedback: false,
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.white,
-            currentIndex: 0,
-            selectedItemColor: AppColors.red,
-            unselectedItemColor: AppColors.lightGrey,
-            selectedLabelStyle: TextStyle(fontSize: 12, color: AppColors.red),
-            unselectedLabelStyle: TextStyle(fontSize: 10, color: AppColors.red),
-            items: [
-              HomeBottomNavBarItem(
-                label: 'Filmes',
-                activeAsset: R.ASSETS_IMAGES_ICON_FILME_NAV_BAR_PNG,
-                inactiveAsset: R.ASSETS_IMAGES_ICON_FILME_NAV_BAR_INATIVO_PNG,
-              ),
-              HomeBottomNavBarItem(
-                label: 'Favoritos',
-                activeAsset: R.ASSETS_IMAGES_ICON_HEART_BNB_PNG,
-                inactiveAsset: R.ASSETS_IMAGES_ICON_HEART_BNB_INATIVO_PNG,
-              ),
-              HomeBottomNavBarItem(
-                label: 'Perfil',
-                activeAsset: R.ASSETS_IMAGES_ICON_PROFILE_NAV_BAR_PNG,
-                inactiveAsset: R.ASSETS_IMAGES_ICON_PROFILE_NAV_BAR_INATIVO_PNG,
-              ),
-            ],
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: BottomNavigationBar(
+              enableFeedback: false,
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: Colors.white,
+              currentIndex: 0,
+              selectedItemColor: AppColors.red,
+              unselectedItemColor: AppColors.lightGrey,
+              selectedLabelStyle: TextStyle(fontSize: 12, color: AppColors.red),
+              unselectedLabelStyle: TextStyle(fontSize: 10, color: AppColors.red),
+              items: [
+                HomeBottomNavBarItem(
+                  label: 'Filmes',
+                  activeAsset: R.ASSETS_IMAGES_ICON_FILME_NAV_BAR_PNG,
+                  inactiveAsset: R.ASSETS_IMAGES_ICON_FILME_NAV_BAR_INATIVO_PNG,
+                ),
+                HomeBottomNavBarItem(
+                  label: 'Favoritos',
+                  activeAsset: R.ASSETS_IMAGES_ICON_HEART_BNB_PNG,
+                  inactiveAsset: R.ASSETS_IMAGES_ICON_HEART_BNB_INATIVO_PNG,
+                ),
+                HomeBottomNavBarItem(
+                  label: 'Perfil',
+                  activeAsset: R.ASSETS_IMAGES_ICON_PROFILE_NAV_BAR_PNG,
+                  inactiveAsset: R.ASSETS_IMAGES_ICON_PROFILE_NAV_BAR_INATIVO_PNG,
+                ),
+              ],
+            ),
           ),
         ),
       ),

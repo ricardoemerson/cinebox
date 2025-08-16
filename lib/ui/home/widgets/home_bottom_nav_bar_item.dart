@@ -7,7 +7,7 @@ class HomeBottomNavBarItem extends BottomNavigationBarItem {
     required String inactiveAsset,
     double iconWidth = 24,
     double iconHeight = 24,
-    double marginTop = 20,
+    double marginTop = 8,
   }) : super(
          label: label,
          activeIcon: Container(
