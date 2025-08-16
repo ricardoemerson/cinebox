@@ -49,3 +49,5 @@ app.*.map.json
 .fvm/
 
 /lib/**/*.g.dart
+/client_secret_386405696466-ru3e6bkipm2n1phjucicqcael5a3l3u6.apps.googleusercontent.com.json
+/client_secret_386405696466-a29v0bel2svt153i453b0kb3gpaudfia.apps.googleusercontent.com.json
