@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '../../../domain/models/movie_model.dart';
 import '../../core/widgets/movie_card.dart';
 
 class MoviesBox extends StatelessWidget {
   final String title;
+  final List<MovieModel> movies;
   final bool vertical;
 
   const MoviesBox({
     super.key,
     required this.title,
+    required this.movies,
     this.vertical = false,
   });
 
@@ -36,14 +39,17 @@ class MoviesBox extends StatelessWidget {
                   spacing: 40,
                   runSpacing: 20,
                   runAlignment: WrapAlignment.center,
-                  children: List.generate(
-                    10,
-                    (index) => Container(
-                      width: 148,
-                      height: 250,
-                      child: MovieCard(),
-                    ),
-                  ),
+                  children: [
+                    for (final movie in movies)
+                      MovieCard(
+                        id: movie.id,
+                        title: movie.title,
+                        year: movie.releaseDate?.substring(0, 4) ?? '',
+                        imageUrl: 'https://images.tmdb.org/t/p/w154${movie.posterPath}',
+                        isFavorite: movie.isFavorite,
+                        onFavoritePressed: () {}, // Replace with actual favorite logic
+                      ),
+                  ],
                 ),
               ),
               child: SizedBox(
@@ -52,11 +58,20 @@ class MoviesBox extends StatelessWidget {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
-                  itemCount: 10,
+                  itemCount: movies.length,
                   itemBuilder: (context, index) {
+                    final movie = movies[index];
+
                     return Container(
                       margin: const EdgeInsets.only(right: 16),
-                      child: MovieCard(),
+                      child: MovieCard(
+                        id: movie.id,
+                        title: movie.title,
+                        year: movie.releaseDate?.substring(0, 4) ?? '',
+                        imageUrl: 'https://images.tmdb.org/t/p/w154${movie.posterPath}',
+                        isFavorite: movie.isFavorite,
+                        onFavoritePressed: () {}, // Replace with actual favorite logic
+                      ),
                     );
                   },
                 ),
