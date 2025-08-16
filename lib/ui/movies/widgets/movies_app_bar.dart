@@ -16,7 +16,7 @@ class _MoviesAppBarState extends ConsumerState<MoviesAppBar> {
     return SliverAppBar(
       expandedHeight: MediaQuery.sizeOf(context).height * 0.30,
       bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(0),
+        preferredSize: const Size.fromHeight(28),
         child: Padding(
           padding: const EdgeInsets.all(14.0),
           child: TextFormField(
