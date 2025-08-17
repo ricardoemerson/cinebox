@@ -11,6 +11,7 @@ part 'usecases_providers.g.dart';
 GetMoviesByCategoryUsecase getMoviesByCategoryUsecase(Ref ref) {
   return GetMoviesByCategoryUsecase(
     tmdbRepository: ref.watch(tmdbRepositoryProvider),
+    movieRepository: ref.watch(movieRepositoryProvider),
   );
 }
 
@@ -18,6 +19,7 @@ GetMoviesByCategoryUsecase getMoviesByCategoryUsecase(Ref ref) {
 GetMoviesByGenreUsecase getMoviesByGenreUsecase(Ref ref) {
   return GetMoviesByGenreUsecase(
     tmdbRepository: ref.watch(tmdbRepositoryProvider),
+    movieRepository: ref.watch(movieRepositoryProvider),
   );
 }
 
@@ -25,5 +27,6 @@ GetMoviesByGenreUsecase getMoviesByGenreUsecase(Ref ref) {
 GetMoviesByNameUsecase getMoviesByNameUsecase(Ref ref) {
   return GetMoviesByNameUsecase(
     tmdbRepository: ref.watch(tmdbRepositoryProvider),
+    movieRepository: ref.watch(movieRepositoryProvider),
   );
 }
