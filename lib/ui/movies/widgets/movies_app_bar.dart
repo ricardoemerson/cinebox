@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,7 +26,12 @@ class _MoviesAppBarState extends ConsumerState<MoviesAppBar> {
   }
 
   void onSearchChanged(String query) {
-    log('query: ${query}');
+    if (query.isEmpty) {
+      _debounce!.cancel();
+      ref.read(movieViewModelProvider.notifier).fetchMoviesByCategory();
+      return;
+    }
+
     if (_debounce?.isActive ?? false) _debounce!.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 500), () {
