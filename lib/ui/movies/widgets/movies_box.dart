@@ -44,7 +44,9 @@ class MoviesBox extends StatelessWidget {
                       MovieCard(
                         id: movie.id,
                         title: movie.title,
-                        year: movie.releaseDate?.substring(0, 4) ?? '',
+                        year: (movie.releaseDate != null && movie.releaseDate!.isNotEmpty)
+                            ? movie.releaseDate!.substring(0, 4)
+                            : '',
                         imageUrl: 'https://images.tmdb.org/t/p/w154${movie.posterPath}',
                         isFavorite: movie.isFavorite,
                         onFavoritePressed: () {}, // Replace with actual favorite logic
@@ -67,7 +69,9 @@ class MoviesBox extends StatelessWidget {
                       child: MovieCard(
                         id: movie.id,
                         title: movie.title,
-                        year: movie.releaseDate?.substring(0, 4) ?? '',
+                        year: (movie.releaseDate != null && movie.releaseDate!.isNotEmpty)
+                            ? movie.releaseDate!.substring(0, 4)
+                            : '',
                         imageUrl: 'https://images.tmdb.org/t/p/w154${movie.posterPath}',
                         isFavorite: movie.isFavorite,
                         onFavoritePressed: () {}, // Replace with actual favorite logic

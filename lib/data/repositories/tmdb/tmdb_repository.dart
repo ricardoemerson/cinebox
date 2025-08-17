@@ -112,9 +112,9 @@ class TmdbRepository implements ITmdbRepository {
 
       return Success(MovieMapper.mapToMovies(movieResponse));
     } on DioException catch (e, s) {
-      log('Erro ao buscar filmes', error: e, stackTrace: s);
+      log('Erro ao buscar filmes por nome', error: e, stackTrace: s);
 
-      return Failure(DataException(message: 'Erro ao buscar filmes'));
+      return Failure(DataException(message: 'Erro ao buscar filmes por nome'));
     }
   }
 

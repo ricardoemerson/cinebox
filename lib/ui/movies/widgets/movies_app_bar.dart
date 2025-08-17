@@ -1,7 +1,11 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/themes/resources.dart';
+import '../movie_view_model.dart';
 
 class MoviesAppBar extends ConsumerStatefulWidget {
   const MoviesAppBar({super.key});
@@ -11,6 +15,26 @@ class MoviesAppBar extends ConsumerStatefulWidget {
 }
 
 class _MoviesAppBarState extends ConsumerState<MoviesAppBar> {
+  Timer? _debounce;
+  final _searchEC = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchEC.dispose();
+    _debounce?.cancel();
+
+    super.dispose();
+  }
+
+  void onSearchChanged(String query) {
+    log('query: ${query}');
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      ref.read(movieViewModelProvider.notifier).fetchMoviesBySearch(query.trim());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
@@ -20,6 +44,8 @@ class _MoviesAppBarState extends ConsumerState<MoviesAppBar> {
         child: Padding(
           padding: const EdgeInsets.all(14.0),
           child: TextFormField(
+            onChanged: onSearchChanged,
+            controller: _searchEC,
             style: TextStyle(
               color: Colors.grey[600],
               fontWeight: FontWeight.w400,

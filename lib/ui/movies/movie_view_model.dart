@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'commands/get_movies_by_category_command.dart';
 import 'commands/get_movies_by_genre_command.dart';
+import 'commands/search_movies_by_name_command.dart';
 
 part 'movie_view_model.g.dart';
 
@@ -31,5 +32,11 @@ class MovieViewModel extends _$MovieViewModel {
     await changeView(MovieViewEnum.byGenre);
 
     ref.read(getMoviesByGenreCommandProvider.notifier).execute(genreId);
+  }
+
+  Future<void> fetchMoviesBySearch(String query) async {
+    await changeView(MovieViewEnum.bySearch);
+
+    ref.read(searchMoviesByNameCommandProvider.notifier).execute(query);
   }
 }

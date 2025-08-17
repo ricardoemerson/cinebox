@@ -2,19 +2,19 @@ import '../../core/result/result.dart';
 import '../../data/repositories/tmdb/i_tmdb_repository.dart';
 import '../models/movie_model.dart';
 
-class GetMoviesByGenreUsecase {
+class GetMoviesByNameUsecase {
   final ITmdbRepository _tmdbRepository;
 
-  GetMoviesByGenreUsecase({
+  GetMoviesByNameUsecase({
     required ITmdbRepository tmdbRepository,
   }) : _tmdbRepository = tmdbRepository;
 
-  Future<Result<List<MovieModel>>> execute({required int genreId}) async {
-    final result = await _tmdbRepository.getMoviesByGenre(genreId: genreId);
+  Future<Result<List<MovieModel>>> execute({required String query}) async {
+    final result = await _tmdbRepository.searchMovies(query: query);
 
     return switch (result) {
       Success(value: final movies) => Success(movies),
-      Failure() => Failure(Exception('Erro ao buscar filmes por gênero')),
+      Failure() => Failure(Exception('Erro ao buscar filmes por nome')),
     };
   }
 }
