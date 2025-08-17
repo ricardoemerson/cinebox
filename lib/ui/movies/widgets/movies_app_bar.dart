@@ -46,6 +46,7 @@ class _MoviesAppBarState extends ConsumerState<MoviesAppBar> {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 500), () {
+      FocusScope.of(context).unfocus();
       ref.read(movieViewModelProvider.notifier).fetchMoviesBySearch(query.trim());
     });
   }
@@ -90,7 +91,6 @@ class _MoviesAppBarState extends ConsumerState<MoviesAppBar> {
                       icon: Icon(Icons.clear, color: Colors.grey[600]),
                       onPressed: () {
                         _searchEC.clear();
-                        log('_debounce?.isActive: ${_debounce?.isActive}');
                         FocusScope.of(context).unfocus();
                         ref.read(movieViewModelProvider.notifier).fetchMoviesByCategory();
                       },
