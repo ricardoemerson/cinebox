@@ -8,6 +8,7 @@ import 'google_sign_in/google_sign_in_service.dart';
 import 'google_sign_in/i_google_sign_in_service.dart';
 import 'local_storage/i_local_storage_service.dart';
 import 'local_storage/local_storage_service.dart';
+import 'movies/movie_service.dart';
 import 'tmdb/tmdb_service.dart';
 
 part 'services_providers.g.dart';
@@ -30,4 +31,9 @@ AuthService authService(Ref ref) {
 @riverpod
 TmdbService tmdbService(Ref ref) {
   return TmdbService(ref.read(tmdbRestClientProvider));
+}
+
+@riverpod
+MovieService movieService(Ref ref) {
+  return MovieService(ref.read(backendRestClientProvider));
 }
