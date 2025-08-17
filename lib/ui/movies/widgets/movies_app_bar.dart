@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,6 +17,16 @@ class MoviesAppBar extends ConsumerStatefulWidget {
 class _MoviesAppBarState extends ConsumerState<MoviesAppBar> {
   Timer? _debounce;
   final _searchEC = TextEditingController();
+  final _showClearButton = ValueNotifier<bool>(false);
+
+  @override
+  void initState() {
+    _searchEC.addListener(() {
+      _showClearButton.value = _searchEC.text.isNotEmpty;
+    });
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -41,6 +52,8 @@ class _MoviesAppBarState extends ConsumerState<MoviesAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    log('context: rodou build');
+
     return SliverAppBar(
       expandedHeight: MediaQuery.sizeOf(context).height * 0.30,
       bottom: PreferredSize(
@@ -67,6 +80,23 @@ class _MoviesAppBarState extends ConsumerState<MoviesAppBar> {
               prefixIcon: Padding(
                 padding: const EdgeInsets.only(left: 8),
                 child: Icon(Icons.search, color: Colors.grey[600]),
+              ),
+              suffixIcon: ValueListenableBuilder<bool>(
+                valueListenable: _showClearButton,
+                builder: (_, value, _) {
+                  return Visibility(
+                    visible: value,
+                    child: IconButton(
+                      icon: Icon(Icons.clear, color: Colors.grey[600]),
+                      onPressed: () {
+                        _searchEC.clear();
+                        log('_debounce?.isActive: ${_debounce?.isActive}');
+                        FocusScope.of(context).unfocus();
+                        ref.read(movieViewModelProvider.notifier).fetchMoviesByCategory();
+                      },
+                    ),
+                  );
+                },
               ),
               prefixIconConstraints: BoxConstraints(
                 minWidth: 0,
