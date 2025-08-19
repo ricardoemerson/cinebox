@@ -5,6 +5,8 @@ import 'ui/home/home_page.dart';
 import 'ui/login/login_page.dart';
 import 'ui/splash/splash_page.dart';
 
+final navKey = GlobalKey<NavigatorState>();
+
 class CineboxMainApp extends StatelessWidget {
   const CineboxMainApp({super.key});
 
@@ -14,6 +16,7 @@ class CineboxMainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Cinebox',
       theme: AppTheme.theme,
+      navigatorKey: navKey,
       routes: {
         '/': (context) => const SplashPage(),
         '/login': (context) => const LoginPage(),

@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../cinebox_main_app.dart';
 import '../../../config/env.dart';
 import '../../../core/result/result.dart';
 import '../../services/services_providers.dart';
@@ -22,6 +24,20 @@ class BackendInterceptor extends Interceptor {
     }
 
     handler.next(options);
+  }
+
+  @override
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    final DioException(:response) = err;
+
+    if (response?.statusCode == 401) {
+      final localStorage = ref.read(localStorageServiceProvider);
+      localStorage.clearAuthToken();
+
+      Navigator.of(navKey.currentContext!).pushNamedAndRemoveUntil('/login', (_) => false);
+    }
+
+    super.onError(err, handler);
   }
 }
 
