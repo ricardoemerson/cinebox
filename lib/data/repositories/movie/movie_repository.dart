@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import '../../../core/result/result.dart';
 import '../../../domain/models/favorite_movie_model.dart';
 import '../../exceptions/data_exception.dart';
+import '../../models/save_favorite_movie_request.dart';
 import '../../services/movies/movie_service.dart';
 import 'i_movie_repository.dart';
 
@@ -35,6 +36,39 @@ class MovieRepository implements IMovieRepository {
       log('Erro ao buscar filmes favoritos', error: e, stackTrace: s);
 
       return Failure(DataException(message: 'Erro ao buscar filmes favoritos'));
+    }
+  }
+
+  @override
+  Future<Result<Unit>> addFavoriteMovie(FavoriteMovieModel favoriteMovie) async {
+    try {
+      await _movieService.addFavoriteMovie(
+        SaveFavoriteMovieRequest(
+          movieId: favoriteMovie.id,
+          title: favoriteMovie.title,
+          posterUrl: favoriteMovie.posterPath,
+          year: favoriteMovie.year,
+        ),
+      );
+
+      return successOfUnit();
+    } on DioException catch (e, s) {
+      log('Erro ao favoritar filme', error: e, stackTrace: s);
+
+      return Failure(DataException(message: 'Erro ao favoritar filme'));
+    }
+  }
+
+  @override
+  Future<Result<Unit>> removeFavoriteMovie(int movieId) async {
+    try {
+      await _movieService.removeFavoriteMovie(movieId);
+
+      return successOfUnit();
+    } on DioException catch (e, s) {
+      log('Erro ao remover filme favorito', error: e, stackTrace: s);
+
+      return Failure(DataException(message: 'Erro ao remover filme favorito'));
     }
   }
 }
