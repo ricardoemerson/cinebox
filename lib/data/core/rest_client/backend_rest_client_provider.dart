@@ -37,7 +37,7 @@ class BackendInterceptor extends Interceptor {
       Navigator.of(navKey.currentContext!).pushNamedAndRemoveUntil('/login', (_) => false);
     }
 
-    super.onError(err, handler);
+    handler.reject(err);
   }
 }
 
