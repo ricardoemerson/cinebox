@@ -18,7 +18,10 @@ class FavoritesViewModel {
 
   Future<void> fetchFavorites() async => _getFavoritesCommand.execute();
 
-  Future<void> removeFavoriteMovie(int movieId) async => _movieRepository.removeFavoriteMovie(movieId);
+  Future<void> removeFavoriteMovie(int movieId) async {
+    await _movieRepository.removeFavoriteMovie(movieId);
+    fetchFavorites();
+  }
 }
 
 @riverpod

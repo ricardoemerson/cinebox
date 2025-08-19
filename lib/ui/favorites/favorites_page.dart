@@ -62,6 +62,9 @@ class _FavoritesPageState extends ConsumerState<FavoritesPage> {
                           year: year.toString(),
                           imageUrl: imageUrl,
                           isFavorite: true,
+                          onFavoritePressed: () {
+                            ref.read(favoritesViewModelProvider).removeFavoriteMovie(id);
+                          },
                         ),
                       );
                     },

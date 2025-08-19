@@ -126,17 +126,19 @@ class _MovieCardState extends ConsumerState<MovieCard> with LoaderAndMessage {
               radius: 20,
               backgroundColor: Colors.white,
               child: IconButton(
-                onPressed: () {
-                  ref
-                      .read(movieCardViewModelProvider(widget.key!, widget.id).notifier)
-                      .toggleFavorite(
-                        id: widget.id,
-                        title: widget.title,
-                        posterPath: widget.imageUrl,
-                        year: int.parse(widget.year),
-                        isFavorite: !isFavorite,
-                      );
-                },
+                onPressed:
+                    widget.onFavoritePressed ??
+                    () {
+                      ref
+                          .read(movieCardViewModelProvider(widget.key!, widget.id).notifier)
+                          .toggleFavorite(
+                            id: widget.id,
+                            title: widget.title,
+                            posterPath: widget.imageUrl,
+                            year: int.parse(widget.year),
+                            isFavorite: !isFavorite,
+                          );
+                    },
                 icon: Icon(
                   isFavorite ? Icons.favorite : Icons.favorite_border,
                   color: isFavorite ? AppColors.red : AppColors.darkGrey,
