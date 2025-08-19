@@ -5,7 +5,14 @@ import '../../core/themes/resources.dart';
 import 'home_bottom_nav_bar_item.dart';
 
 class HomeBottomNavBar extends StatefulWidget {
-  const HomeBottomNavBar({super.key});
+  final int currentIndex;
+  final ValueChanged<int> onTap;
+
+  const HomeBottomNavBar({
+    super.key,
+    required this.currentIndex,
+    required this.onTap,
+  });
 
   @override
   State<HomeBottomNavBar> createState() => _HomeBottomNavBarState();
@@ -34,10 +41,11 @@ class _HomeBottomNavBarState extends State<HomeBottomNavBar> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(24),
             child: BottomNavigationBar(
+              onTap: widget.onTap,
               enableFeedback: false,
               type: BottomNavigationBarType.fixed,
               backgroundColor: Colors.white,
-              currentIndex: 0,
+              currentIndex: widget.currentIndex,
               selectedItemColor: AppColors.red,
               unselectedItemColor: AppColors.lightGrey,
               selectedLabelStyle: TextStyle(fontSize: 12, color: AppColors.red),

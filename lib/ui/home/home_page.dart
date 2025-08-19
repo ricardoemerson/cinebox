@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../favorites/favorites_page.dart';
 import '../movies/movies_page.dart';
 import 'widgets/home_bottom_nav_bar.dart';
 
@@ -12,6 +13,8 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
+  int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,9 +25,16 @@ class _HomePageState extends ConsumerState<HomePage> {
           opacity: animation,
           child: child,
         ),
-        child: MoviesPage(),
+        child: switch (_currentIndex) {
+          0 => MoviesPage(),
+          1 => FavoritesPage(),
+          _ => MoviesPage(),
+        },
       ),
-      bottomNavigationBar: HomeBottomNavBar(),
+      bottomNavigationBar: HomeBottomNavBar(
+        currentIndex: _currentIndex,
+        onTap: (index) => setState(() => _currentIndex = index),
+      ),
     );
   }
 }
