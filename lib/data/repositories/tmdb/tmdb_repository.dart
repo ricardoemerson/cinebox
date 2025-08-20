@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 
 import '../../../core/result/result.dart';
+import '../../../domain/models/cast_model.dart';
 import '../../../domain/models/genre_model.dart';
+import '../../../domain/models/movie_detail_model.dart';
 import '../../../domain/models/movie_model.dart';
 import '../../exceptions/data_exception.dart';
 import '../../mappers/movie_mapper.dart';
@@ -45,12 +47,49 @@ class TmdbRepository implements ITmdbRepository {
   }
 
   @override
-  Future<Result<MovieModel>> getMovieDetails({
-    required int movieId,
-    String language = 'pt-BR',
-  }) {
-    // TODO: implement getMovieDetails
-    throw UnimplementedError();
+  Future<Result<MovieDetailModel>> getMovieDetail({required int movieId}) async {
+    try {
+      final movieResponse = await _tmdbService.getMovieDetails(
+        movieId: movieId,
+        appendToResponse: 'credits,videos,images,recommendations,releases_dates',
+      );
+
+      final movieDetail = MovieDetailModel(
+        title: movieResponse.title,
+        overview: movieResponse.overview,
+        releaseDate: movieResponse.releaseDate,
+        runtime: movieResponse.runtime,
+        voteAverage: movieResponse.voteAverage,
+        voteCount: movieResponse.voteCount,
+        images: movieResponse.images.backdrops
+            .map((i) => 'https://image.tmdb.org/t/p/w342${i.filePath}')
+            .toList(),
+        cast: movieResponse.credits.cast
+            .map(
+              (c) => CastModel(
+                name: c.name,
+                character: c.character,
+                profilePath: c.profilePath,
+              ),
+            )
+            .toList(),
+        genres: movieResponse.genres
+            .map(
+              (g) => GenreModel(
+                id: g.id,
+                name: g.name,
+              ),
+            )
+            .toList(),
+        videos: movieResponse.videos.results.map((v) => v.key).toList(),
+      );
+
+      return Success(movieDetail);
+    } on DioException catch (e, s) {
+      log('Erro ao buscar detalhes do filme', error: e, stackTrace: s);
+
+      return Failure(DataException(message: 'Erro ao buscar detalhes do filme'));
+    }
   }
 
   @override
