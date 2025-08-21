@@ -1,8 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../core/result/result.dart';
-import '../../data/repositories/repositories_providers.dart';
-import '../../domain/models/movie_detail_model.dart';
+import '../../../core/result/result.dart';
+import '../../../data/repositories/repositories_providers.dart';
+import '../../../domain/models/movie_detail_model.dart';
 
 part 'get_movie_detail_command.g.dart';
 
