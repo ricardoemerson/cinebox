@@ -61,94 +61,99 @@ class _MovieCardState extends ConsumerState<MovieCard> with LoaderAndMessage {
       );
     });
 
-    return Stack(
-      children: [
-        SizedBox(
-          width: 148,
-          height: 250,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CachedNetworkImage(
-                imageUrl: widget.imageUrl,
-                imageBuilder: (context, imageProvider) {
-                  return Container(
-                    width: 148,
-                    height: 184,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).pushNamed('/movie-detail', arguments: widget.id);
+      },
+      child: Stack(
+        children: [
+          SizedBox(
+            width: 148,
+            height: 250,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CachedNetworkImage(
+                  imageUrl: widget.imageUrl,
+                  imageBuilder: (context, imageProvider) {
+                    return Container(
+                      width: 148,
+                      height: 184,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                  );
-                },
-                width: 148,
-                height: 184,
-                fit: BoxFit.cover,
-                placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(),
+                    );
+                  },
+                  width: 148,
+                  height: 184,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.error,
+                    size: 48,
+                  ),
                 ),
-                errorWidget: (context, url, error) => const Icon(
-                  Icons.error,
-                  size: 48,
+                const SizedBox(height: 8),
+                Text(
+                  widget.title,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                widget.title,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
+                Text(
+                  widget.year,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.lightGrey,
+                  ),
                 ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Text(
-                widget.year,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.lightGrey,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        Positioned(
-          right: 0,
-          bottom: 50,
-          child: Material(
-            elevation: 8,
-            borderRadius: BorderRadius.circular(30),
-            child: CircleAvatar(
-              radius: 20,
-              backgroundColor: Colors.white,
-              child: IconButton(
-                onPressed:
-                    widget.onFavoritePressed ??
-                    () {
-                      ref
-                          .read(movieCardViewModelProvider(widget.key!, widget.id).notifier)
-                          .toggleFavorite(
-                            id: widget.id,
-                            title: widget.title,
-                            posterPath: widget.imageUrl,
-                            year: int.parse(widget.year),
-                            isFavorite: !isFavorite,
-                          );
-                    },
-                icon: Icon(
-                  isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color: isFavorite ? AppColors.red : AppColors.darkGrey,
-                  size: 16,
+          Positioned(
+            right: 0,
+            bottom: 50,
+            child: Material(
+              elevation: 8,
+              borderRadius: BorderRadius.circular(30),
+              child: CircleAvatar(
+                radius: 20,
+                backgroundColor: Colors.white,
+                child: IconButton(
+                  onPressed:
+                      widget.onFavoritePressed ??
+                      () {
+                        ref
+                            .read(movieCardViewModelProvider(widget.key!, widget.id).notifier)
+                            .toggleFavorite(
+                              id: widget.id,
+                              title: widget.title,
+                              posterPath: widget.imageUrl,
+                              year: int.parse(widget.year),
+                              isFavorite: !isFavorite,
+                            );
+                      },
+                  icon: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color: isFavorite ? AppColors.red : AppColors.darkGrey,
+                    size: 16,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

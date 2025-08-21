@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'ui/core/themes/theme.dart';
 import 'ui/home/home_page.dart';
 import 'ui/login/login_page.dart';
+import 'ui/movie_detail/movie_detail_page.dart';
 import 'ui/splash/splash_page.dart';
 
 final navKey = GlobalKey<NavigatorState>();
@@ -21,6 +22,7 @@ class CineboxMainApp extends StatelessWidget {
         '/': (context) => const SplashPage(),
         '/login': (context) => const LoginPage(),
         '/home': (context) => const HomePage(),
+        '/movie-detail': (context) => const MovieDetailPage(),
       },
     );
   }
