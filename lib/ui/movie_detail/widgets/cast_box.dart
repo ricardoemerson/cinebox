@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '../../../domain/models/movie_detail_model.dart';
 import '../../core/themes/colors.dart';
 import '../../core/themes/text_styles.dart';
 import 'actor_card.dart';
 
 class CastBox extends StatelessWidget {
-  const CastBox({super.key});
+  final MovieDetailModel moveDetail;
+
+  const CastBox({
+    super.key,
+    required this.moveDetail,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +28,14 @@ class CastBox extends StatelessWidget {
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
-              itemCount: 10,
+              itemCount: moveDetail.cast.length,
               itemBuilder: (context, index) {
+                final actor = moveDetail.cast[index];
+
                 return ActorCard(
-                  name: 'Actor $index',
-                  character: 'Character $index',
-                  imageUrl:
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2WH0Re2ye82m1WQdT2eQv_aV8UHCFGHEX-w&s',
+                  name: actor.name,
+                  character: actor.character,
+                  imageUrl: 'https://image.tmdb.org/t/p/w185/${actor.profilePath}',
                 );
               },
             ),
