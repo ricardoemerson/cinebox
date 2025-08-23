@@ -9,7 +9,7 @@ part 'get_movie_detail_command.g.dart';
 @riverpod
 class GetMovieDetailCommand extends _$GetMovieDetailCommand {
   @override
-  AsyncValue<MovieDetailModel> build() => AsyncLoading();
+  AsyncValue<MovieDetailModel?> build() => AsyncLoading();
 
   Future<void> execute(int movieId) async {
     final result = await ref.read(tmdbRepositoryProvider).getMovieDetail(movieId: movieId);
