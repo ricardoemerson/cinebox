@@ -57,16 +57,14 @@ atualizado com os últimos lançamentos do mundo cinematográfico.
 - **Dart** 3.9 - Linguagem de programação
 - **Riverpod** - Gerenciamento de estado
 - **Dio** - Cliente HTTP para comunicação com APIs
-- Retrofit -
-- Google SignIn -
-- Json Annotation -
 - **Cached Network Image** - Cache e carregamento otimizado de imagens
 - **Shared Preferences** - Armazenamento local de dados
 
 ### APIs e Serviços
 
 - **TMDB API** - Base de dados de filmes
-- **Firebase** (opcional) - Autenticação e armazenamento na nuvem
+- **Google SignIn** - Autenticação de usuários via Google
+- **API Go** - Controle de filmes favoritados
 
 ### Arquitetura
 
@@ -78,9 +76,9 @@ atualizado com os últimos lançamentos do mundo cinematográfico.
 
 ### Pré-requisitos
 
-- Flutter SDK 3.24.x ou superior
-- Dart SDK 3.5.x ou superior
-- Android Studio / VS Code
+- Flutter SDK 3.35.x ou superior
+- Dart SDK 3.9.x ou superior
+- IntelliJ IDEA / Android Studio / VS Code
 - Git
 
 ### Instalação
@@ -101,17 +99,31 @@ atualizado com os últimos lançamentos do mundo cinematográfico.
    Crie um arquivo `.env` na raiz do projeto:
 
    ```env
-   TMDB_API_KEY=sua_chave_da_api_tmdb
-   FIREBASE_PROJECT_ID=seu_projeto_firebase
+   THE_MOVIE_DB_API_KEY=sua_chave_da_api_tmdb
+   GOOGLE_API_KEY=sua_chave_da_api_google
    ```
 4. **Execute o aplicativo**
 
    ```bash
    # Para Android
-   flutter run --dart-define-from-file=.env
+   flutter run -d android
 
    # Para iOS
-   flutter run --dart-define-from-file=.env -d ios
+   flutter run -d ios
    ```
 
 ### Gerando APK/IPA
+
+Para gerar o APK para Android:
+
+```bash
+flutter build apk --release
+```
+
+Para gerar o IPA para iOS:
+
+```bash
+flutter build ios --release
+``` 
+
+
